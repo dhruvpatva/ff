@@ -1,0 +1,67 @@
+<ul class="page-breadcrumb breadcrumb">
+     <li>
+          <i class="fa fa-home"></i>
+          <a ui-sref="dashboard" >Home</a>
+          <i class="fa fa-angle-right"></i>
+     </li>
+     <li><a href="javascript:void(0);">Add Event Attendee</a></li>
+</ul>
+<div class="form" ng-init="getAdd_EventAttendee()">
+     <!-- BEGIN EXAMPLE TABLE PORTLET-->
+     <div class="portlet light portlet-fit portlet-form bordered" >
+          <div class="portlet-title">
+               <div class="caption">
+                    Add Event Attendee
+               </div>
+          </div>
+          <div class="portlet-body"> 
+               <div class="alert alert-danger show-error" ng-show="error"> <strong>Error! </strong>{{error_code}}</div>
+               <form class="form-horizontal form-bordered"   method="post"  enctype="multipart/form-data" ng-submit="Add_EventAttendee()" >
+                    <div class="form-body">  
+                         <input type="hidden" name="event_id" ng-model="eventattendee.event_id" value="{{eventattendee.event_id}}" />
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">User</label>
+                              <div class="col-sm-4">
+                                   <input type="text" name="eventattendee_selected" placeholder="Enter User Name" class="form-control" ng-model="eventattendee.selected" typeahead="user as user.name for user in getUsers($viewValue) | limitTo:10" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="control-label col-md-3">Registration Date</label>
+                              <div class="col-md-4">
+                                   <div class="input-group date" id="registration_date">
+                                        <input type="text" size="16" name="registration_date" ng-model="eventattendee.registration_date" value="{{eventattendee.registration_date}}" readonly class="form-control" required>
+                                        <span class="input-group-btn">
+                                             <button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+                                             <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Contact Number</label> 
+                              <div class="col-sm-4" >
+                                   <input type="text" name="contact_number" placeholder="Contact Number" class="form-control" ng-model="eventattendee.contact_number"  value="{{eventattendee.contact_number}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Status</label>
+                              <div class="col-sm-4">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="status" ng-model="eventattendee.status" value="1" > Active </input> </label> 
+                                        <label class="radio-inline"><input type="radio" name="status"  ng-model="eventattendee.status" value="0" > Inactive</input> </label>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="form-actions">
+                         <div class="row">
+                              <div class="col-md-offset-3 col-md-9">
+                                   <button type="submit" class="btn green" id="add-new-btn" >Submit</button>
+                                   <a class="btn default" ui-sref="eventattendees({id: {{eventattendee.event_id}}})" >Cancel</a>
+                              </div>
+                         </div>
+                    </div>
+               </form>
+          </div>
+     </div>
+</div>

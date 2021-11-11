@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>apiDoc - FITT Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/easy-responsive-tabs.css" rel="stylesheet" media="screen">
+    <link href="./css/style.css" rel="stylesheet" media="screen">
+</head>
+<body>
+<nav class="nav-top">
+    <p> FIIT Finder Api Documentation </p>
+</nav>
+<div class="container">
+<div><h1></h1></div>
+<div id="main">
+    <aside>
+        <nav class="nav-main"  style="margin-top: 0px;">
+            <ul>
+                <li class="nav-header" id="nav-main-params"><a href="#getting-started">Api List</a></li>
+                <li><a href="#login-info">Login</a></li>
+            </ul>
+        </nav>
+    </aside>
+<div id="content" role="main">
+<!--
+ /* ============================================================
+  * Params
+  * ============================================================ */
+-->
+<section id="params">
+<section id="getting-started">
+    <h2>SiteUrl: http://localhost/fittfinder</h2>
+</section>
+    <article id="login-info">
+        <h2>@login</h2>
+        <pre><code>@api {method} path [title]</code></pre>
+        <p><strong>Required!</strong></p>
+        <p>Without that indicator, apiDoc parser ignore the documentation block.</p>
+        <p>Except definition blocks like <code>@apiDefine</code>, they not need <code>@api</code>.</p>
+        <p>Usage: <code>@api {get} /user/:id Users unique ID.</code></p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="code">method</td>
+                <td>
+                    Request method name: <code>DELETE</code>, <code>GET</code>, <code>POST</code>, <code>PUT</code>, ...<br>
+                    More info <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">Wikipedia HTTP-Request_methods</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="code">path</td>
+                <td>Request Path.</td>
+            </tr>
+            <tr>
+                <td class="code">title <span class="label label-optional">optional</span></td>
+                <td>A short title. (used for navigation and article header)</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>Example:</p>
+        <pre class="example"><code>/**
+ * @api {get} /user/:id
+ */</code></pre>
+    </article>
+</section>
+</div><!-- /#content -->
+</div><!-- /#main -->
+
+</div><!-- /.container -->
+
+<script src="./css/jquery-1.11.0.min.js"></script>
+<script src="./css/easyResponsiveTabs.js"></script>
+<script>
+$(document).ready(function() {
+    var headerSize = 70;
+    // Anchor scroll
+    $("a").each(function() {
+        if($(this).attr("href").substr(0, 1) === "#") {
+            $(this).on("click", function(e) {
+                e.preventDefault();
+                var id = $(this).attr("href");
+                $("html,body").animate({ scrollTop: parseInt($(id).offset().top) - headerSize }, 200);
+                window.location.hash = $(this).attr("href");
+            });
+        }
+    });
+    if(window.location.hash) {
+        var id = window.location.hash;
+        setTimeout(function() {
+            $("html,body").animate({ scrollTop: parseInt($(id).offset().top) - headerSize }, 0);
+        }, 1);
+    }
+
+    // Easy-Responsive-Tabs
+    $('#exampleTab').easyResponsiveTabs();
+
+    // Simple fix nav-main Scrollposition (no-resize)
+    var $doc = $(document);
+    var $nav = $(".nav-main");
+    var $params = $("#nav-main-params");
+    var maxMove = $params.offset().top - headerSize;
+    var height = $nav.height() - ($params.position().top - $nav.position().top) + headerSize;
+    function moveNav() {
+        if($doc.scrollTop() > maxMove) $nav.css({ marginTop: $doc.scrollTop() - maxMove });
+        else $nav.css({ marginTop: 0 });
+    }
+    // Enable if screen is heigh enough
+    if($doc.height() >= height) {
+        moveNav();
+      $doc.scroll(function() { moveNav(); });
+    }
+});
+</script>
+
+
+</body></html>

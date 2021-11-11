@@ -1,0 +1,415 @@
+/* Setup Rounting For All Pages */
+FittFinderApp.config(['$stateProvider', '$urlRouterProvider','$httpProvider', 'USER_ROLES', function($stateProvider, $urlRouterProvider, $httpProvider , USER_ROLES) {
+    
+    // Redirect any unmatched url
+    $urlRouterProvider.otherwise("/");
+
+    $stateProvider
+        // Dashboard
+        .state('dashboard', {
+            url: "/",
+            templateUrl: "views/dashboard.html",            
+            data: {pageTitle: 'Dashboard', pageSubTitle: 'statistics & reports',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "DashboardController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            './assets/global/plugins/morris/morris.css',
+                            './assets/admin/pages/css/tasks.css',
+                            
+                            './assets/global/plugins/morris/morris.min.js',
+                            './assets/global/plugins/morris/raphael-min.js',
+                            './assets/global/plugins/jquery.sparkline.min.js',
+
+                            './assets/admin/pages/scripts/index3.js',
+                            './assets/admin/pages/scripts/tasks.js',
+
+                             'app/controllers/DashboardController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // User Listing
+        .state('users', {
+            url: "/users",
+            templateUrl: "views/users/index.html",            
+            data: {pageTitle: 'Users', pageSubTitle: 'All users',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "UsersController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/UsersController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+         // User Add
+        .state('addspeadmin', {
+            url: "/users/addspeadmin",
+            templateUrl: "views/users/addspeadmin.html",            
+            data: {pageTitle: 'Users', pageSubTitle: 'Add SPE Admin',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "UsersController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/UsersController.js',
+                             './assets/global/plugins/select2/select2.css',
+                             './assets/global/plugins/select2/select2.min.js',
+                             './assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
+                             './assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        .state('addspi', {
+            url: "/users/addspi",
+            templateUrl: "views/users/addspi.html",            
+            data: {pageTitle: 'Users', pageSubTitle: 'Add SPI',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "UsersController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/UsersController.js',
+                             './assets/global/plugins/select2/select2.css',
+                             './assets/global/plugins/select2/select2.min.js',
+                             './assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css',
+                             './assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js',
+                             './assets/global/plugins/ckeditor/ckeditor.js',
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        
+        // User Edit
+        .state('useredit', {
+            url: "/users/edit/:id",
+            templateUrl: "views/users/edit.html",            
+            data: {pageTitle: 'Users', pageSubTitle: 'All users',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "UsersController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/UsersController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // Acitivity Level
+        .state('activitylevel', {
+            url: "/activitylevel",
+            templateUrl: "views/activitylevel/index.html",            
+            data: {pageTitle: 'Activity Level', pageSubTitle: 'All Activity Level',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "ActivityLevelController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/ActivityLevelController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // Acitivity Add
+        .state('activityadd', {
+            url: "/activitylevel/add",
+            templateUrl: "views/activitylevel/add.html",            
+            data: {pageTitle: 'Activity Level', pageSubTitle: 'Add Activity Level',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "ActivityLevelController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/ActivityLevelController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // Acitivity Edit
+        .state('activityedit', {
+            url: "/activitylevel/edit/:id",
+            templateUrl: "views/activitylevel/edit.html",            
+            data: {pageTitle: 'Activity Level', pageSubTitle: 'Edit Activity Level',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "ActivityLevelController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/ActivityLevelController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // All Goals
+        .state('goals', {
+            url: "/goals",
+            templateUrl: "views/goals/index.html",            
+            data: {pageTitle: 'Goals', pageSubTitle: 'All Goals',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "GoalsController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/GoalsController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // Goal Add
+        .state('goaladd', {
+            url: "/goals/add",
+            templateUrl: "views/goals/add.html",            
+            data: {pageTitle: 'Goal', pageSubTitle: 'Add Goal',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "GoalsController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/GoalsController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // Goal Edit
+        .state('goaledit', {
+            url: "/goals/edit/:id",
+            templateUrl: "views/goals/edit.html",            
+            data: {pageTitle: 'Goal', pageSubTitle: 'Edit Goal',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "GoalsController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/GoalsController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // All Amenities
+        .state('amenities', {
+            url: "/amenities",
+            templateUrl: "views/amenities/index.html",            
+            data: {pageTitle: 'Amenities', pageSubTitle: 'All Amenities',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "AmenitiesController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/AmenitiesController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // Amenities Add
+        .state('amenitiesadd', {
+            url: "/amenities/add",
+            templateUrl: "views/amenities/add.html",            
+            data: {pageTitle: 'Amenities', pageSubTitle: 'Add Amenities',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "AmenitiesController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/AmenitiesController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // Amenities Edit
+        .state('amenitiesedit', {
+            url: "/amenities/edit/:id",
+            templateUrl: "views/amenities/edit.html",            
+            data: {pageTitle: 'Amenities', pageSubTitle: 'Edit Amenities',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "AmenitiesController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/AmenitiesController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+         // All SPE
+        .state('allspe', {
+            url: "/allspe",
+            templateUrl: "views/spe/index.html",            
+            data: {pageTitle: 'SPE', pageSubTitle: 'All SPE',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "SpeController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/SpeController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        
+        
+        //  Add SPE
+        .state('speadd', {
+            url: "/spe/add",
+            templateUrl: "views/spe/add.html",            
+            data: {pageTitle: 'SPE', pageSubTitle: 'Add SPE',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "SpeController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/SpeController.js',
+                             './assets/global/plugins/ckeditor/ckeditor.js',
+                             './assets/global/plugins/select2/select2.css',
+                             './assets/global/plugins/select2/select2.min.js',
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // Edit SPE
+        .state('speedit', {
+            url: "/spe/edit/:id",
+            templateUrl: "views/spe/edit.html",            
+            data: {pageTitle: 'SPE', pageSubTitle: 'Edit SPE',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "SpeController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/SpeController.js',
+                             './assets/global/plugins/ckeditor/ckeditor.js',
+                             './assets/global/plugins/select2/select2.css',
+                             './assets/global/plugins/select2/select2.min.js',
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+         // All Amenities
+        .state('specialities', {
+            url: "/specialities",
+            templateUrl: "views/specialities/index.html",            
+            data: {pageTitle: 'Specialities', pageSubTitle: 'All Specialities',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "SpecialitiesController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/SpecialitiesController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // Amenities Add
+        .state('specialitiesadd', {
+            url: "/specialities/add",
+            templateUrl: "views/specialities/add.html",            
+            data: {pageTitle: 'Specialities', pageSubTitle: 'Add Specialities',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "SpecialitiesController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/SpecialitiesController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+        // Amenities Edit
+        .state('specialitiesedit', {
+            url: "/specialities/edit/:id",
+            templateUrl: "views/specialities/edit.html",            
+            data: {pageTitle: 'Specialities', pageSubTitle: 'Edit Specialities',authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.guest]},
+            controller: "SpecialitiesController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'FittFinderApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                             'app/controllers/SpecialitiesController.js'
+                        ] 
+                    });
+                }]
+            }
+        })
+        
+}]);

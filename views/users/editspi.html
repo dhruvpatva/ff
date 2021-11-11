@@ -1,0 +1,175 @@
+<ul class="page-breadcrumb breadcrumb">
+     <li>
+          <i class="fa fa-home"></i>
+          <a ui-sref="dashboard" >Home</a>
+          <i class="fa fa-angle-right"></i>
+     </li>
+     <li><a href="javascript:void(0);">Edit SPI</a></li>
+</ul>
+<div class="form">
+     <!-- BEGIN EXAMPLE TABLE PORTLET-->
+     <div class="portlet light portlet-fit portlet-form bordered"  ng-init="InitSPiEdit()" >
+          <div class="portlet-title">
+               <div class="caption">
+                    Edit SPI
+               </div>
+          </div>
+          <div class="portlet-body"> 
+               <div class="alert alert-danger show-error" ng-show="error"> <strong>Error! </strong>{{error_code}} </div>
+               <form class="form-horizontal form-bordered" id="form-username"  method="post"  enctype="multipart/form-data" ng-submit="Update_Spi()" >
+                   <input type="hidden" ng-model="spi.id" />
+                    <div class="form-body">
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Profile Image</label>
+                              <div class="col-sm-4">
+                                   <input type="file" file-model="profile_img_file" ngf-select="onFileSelect($file,'spiedit')" ngf-pattern="'image/*'" >
+                                   <img class="user_profile_image" src="{{spi.profile_image}}" style="height: 100px;margin-bottom: 10px;" />
+                                   <div class="error profile_error"></div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Profile Cover</label>
+                              <div class="col-sm-4">
+                                   <input type="file" file-model="cover_img_file" ngf-select="onFileSelect($file,'spicoveredit')" ngf-pattern="'image/*'" >
+                                   <img class="user_profile_image" src="{{spi.profile_cover}}" style="height: 100px;margin-bottom: 10px;" />
+                                   <div class="error cover_error"></div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">First Name</label>
+                              <div class="col-sm-4">
+                                   <input type="text" name="firstname" class="form-control" ng-model="spi.firstname"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Last Name</label>
+                              <div class="col-sm-4">
+                                   <input type="text" name="lastname" class="form-control" ng-model="spi.lastname"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Email</label>
+                              <div class="col-sm-4">
+                                   <input type="email"  name="email" class="form-control" ng-model="spi.email" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">DOB</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="dob" id="dob" class="form-control" ng-model="spi.dob"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Gender</label>
+                              <div class="col-sm-4">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="gender" ng-model="spi.gender"  value="male" > Male </input> </label> 
+                                        <label class="radio-inline"><input type="radio" name="gender"  ng-model="spi.gender" value="female" > Female</input> </label>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">About us</label>
+                              <div class="col-sm-4">
+                                   <textarea class="form-control" ck-editor name="aboutus" ng-model="spi.aboutus"></textarea>
+                              </div>
+                         </div>
+
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Specialities</label> 
+                              <div class="col-sm-4" >
+                                   <select class="form-control select2" name="specialities" id="specialities"  ng-options="option.name for option in specialities.availableOptions track by option.id" ng-model="specialities.selectedOption" multiple></select>
+                              </div>                                          
+                         </div>
+
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Phone No</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="phone" class="form-control" ng-model="spi.mobile" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Address</label>
+                              <div class="col-sm-4">
+                                   <textarea  name="address"  class="form-control" ng-model="spi.address"  >{{spi.address}}</textarea>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Latitude</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="latitude"  class="form-control" ng-model="spi.latitude"   required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Longitude</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="longitude"  class="form-control" ng-model="spi.longitude"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">City</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="city"  class="form-control" ng-model="spi.city"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">State</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="state"  class="form-control" ng-model="spi.state"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Country</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="country"  class="form-control" ng-model="spi.country"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Zipcode</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="zipcode"  class="form-control" ng-model="spi.zipcode"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Timezone</label> 
+                              <div class="col-sm-4" >
+                                   <select class="form-control select2" name="timezone" id="timezone"   ng-options="option.name for option in timezones.availableOptions track by option.id" ng-model="timezones.selectedOption" ></select>
+                              </div>                                          
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Education</label>
+                              <div class="col-sm-4">
+                                   <div class="educationgroup margin-top-10 border" data-ng-repeat="education in educations" style="padding:5px;">
+                                        <div ><input type="text"  name="coursename" placeholder="Enter Degree/Certification" class="form-control" ng-model="education.coursename"   ></div>
+                                        <div class="margin-top-10"><input type="text"  name="universityname" placeholder="Enter University/College/School" class="form-control" ng-model="education.universityname" ></div>
+                                        <div class="row margin-top-10">
+                                             <div class="col-sm-6"><input type="text"  name="startyear" placeholder="Enter Start Year" class="form-control" ng-model="education.startyear"  ></div>
+                                             <div class="col-sm-6"><input type="text"  name="endyear" placeholder="Enter End Year" class="form-control" ng-model="education.endyear"   ></div>
+                                        </div>
+                                         <button class="btn default btn-xs red-flamingo" ng-show="$last" ng-click="removeEducation()"  style="float: right;">Remove</button>
+                                   </div> 
+                                   <div class="margin-top-10"><a class="addmoreeducation" ng-click="addNewEducation()"> Add More</a></div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Status</label>
+                              <div class="col-sm-4">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="status" ng-model="spi.status"  value="1" > Active </input> </label> 
+                                        <label class="radio-inline"><input type="radio" name="status"  ng-model="spi.status" value="0" > Inactive</input> </label>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="form-actions">
+                         <div class="row">
+                              <div class="col-md-offset-3 col-md-9">
+                                   <button type="submit" class="btn green"  id="add-new-btn" >Submit</button>
+                                   <a class="btn default" ui-sref="users" >Cancel</a>
+                              </div>
+                         </div>
+                    </div>
+               </form>
+          </div>
+     </div>
+</div>

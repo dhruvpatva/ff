@@ -1,0 +1,98 @@
+<ul class="page-breadcrumb breadcrumb">
+        <li>
+                <i class="fa fa-home"></i>
+                <a ui-sref="dashboard" >Home</a>
+                <i class="fa fa-angle-right"></i>
+        </li>
+        <li><a href="javascript:void(0);">Edit SPE Admin</a></li>
+</ul>
+<div class="form">
+<!-- BEGIN EXAMPLE TABLE PORTLET-->
+<div class="portlet light portlet-fit portlet-form bordered"  ng-init="InitSPEUser(true)" >
+        <div class="portlet-title">
+                <div class="caption">
+                        Edit SPE Admin
+                </div>
+        </div>
+        <div class="portlet-body"> 
+             <div class="alert alert-danger show-error" ng-show="error"> <strong>Error! </strong>{{error_code}} </div>
+               <form class="form-horizontal form-bordered" id="form-username"  method="post"  enctype="multipart/form-data" ng-submit="Update_SpeAdmin()" >
+                       <div class="form-body">
+                                <input type="hidden" name="id" ng-model="speuser.id" >
+                                <div class="form-group">
+                                         <label class="col-sm-3 control-label">SPE</label> 
+                                         <div class="col-sm-4" >
+                                              <p>{{speuser.name}}</p>
+                                         </div>                                          
+                                </div>
+                                <div class="form-group">
+                                        <label class="col-sm-3 control-label">Profile Image</label>
+                                        <div class="col-sm-4">
+                                             <input type="file" file-model="speuser.profile_image" >
+                                             <img class="user_profile_image" src="{{speuser.profile_image}}" style="height: 100px;margin-bottom: 10px;" />
+                                             <div class="error profile_error"></div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                         <label class="col-sm-3 control-label">First Name</label>
+                                         <div class="col-sm-4">
+                                                 <input type="text" name="firstname" class="form-control" ng-model="speuser.firstname" required>
+                                         </div>
+                                </div>
+                                <div class="form-group">
+                                         <label class="col-sm-3 control-label">Last Name</label>
+                                         <div class="col-sm-4">
+                                                 <input type="text" name="lastname" class="form-control" ng-model="speuser.lastname"   required>
+                                         </div>
+                                </div>
+                                <div class="form-group">
+                                         <label class="col-sm-3 control-label">Email</label>
+                                         <div class="col-sm-4">
+                                                 <input type="email"  name="email" class="form-control" ng-model="speuser.email"  required readonly>
+                                         </div>
+                                </div>
+                                <div class="form-group">
+                                         <label class="col-sm-3 control-label">DOB</label>
+                                         <div class="col-sm-4">
+                                                 <input type="text"  name="dob" id="dob" class="form-control" ng-model="speuser.dob"  required>
+                                         </div>
+                                </div>
+                                <div class="form-group">
+                                         <label class="col-sm-3 control-label">Gender</label>
+                                         <div class="col-sm-4">
+                                                 <div class="radio-list">
+                                                         <label class="radio-inline"><input type="radio" name="gender" ng-model="speuser.gender"  value="male" > Male </input> </label> 
+                                                         <label class="radio-inline"><input type="radio" name="gender"  ng-model="speuser.gender" value="female" > Female</input> </label>
+                                                 </div>
+                                         </div>
+                                </div>
+                               
+                                <div class="form-group">
+                                         <label class="col-sm-3 control-label">Timezone</label> 
+                                         <div class="col-sm-4" >
+                                                 <select class="form-control select2" name="timezone" id="timezone"  ng-options="option.name for option in timezones.availableOptions track by option.id" ng-model="timezones.selectedtime" ></select>
+                                         </div>                                          
+                                </div>
+                                
+                                <div class="form-group">
+                                         <label class="col-sm-3 control-label">Status</label>
+                                         <div class="col-sm-4">
+                                                 <div class="radio-list">
+                                                         <label class="radio-inline"><input type="radio" name="status" ng-model="speuser.status"  value="1" > Active  </label> 
+                                                         <label class="radio-inline"><input type="radio" name="status"  ng-model="speuser.status" value="0" > Inactive </label>
+                                                 </div>
+                                         </div>
+                                </div>
+                       </div>
+                      <div class="form-actions">
+                         <div class="row">
+                             <div class="col-md-offset-3 col-md-9">
+                                 <button type="submit" class="btn green"  id="add-new-btn" >Submit</button>
+                                 <a class="btn default" ui-sref="users" >Cancel</a>
+                             </div>
+                         </div>
+                     </div>
+               </form>
+        </div>
+     </div>
+</div>

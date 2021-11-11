@@ -1,0 +1,183 @@
+<ul class="page-breadcrumb breadcrumb">
+     <li>
+          <i class="fa fa-home"></i>
+          <a ui-sref="dashboard" >Home</a>
+          <i class="fa fa-angle-right"></i>
+     </li>
+     <li><a href="javascript:void(0);">Add Class</a></li>
+</ul>
+<div class="form">
+     <!-- BEGIN EXAMPLE TABLE PORTLET-->
+     <div class="portlet light portlet-fit portlet-form bordered" ng-init="addClassLoadData()">
+          <div class="portlet-title">
+               <div class="caption">
+                    Add Class
+               </div>
+          </div>
+          <div class="portlet-body"> 
+               <div class="alert alert-danger show-error" ng-show="error"> <strong>Error! </strong>{{error_code}}</div>
+               <form class="form-horizontal form-bordered"   method="post"  enctype="multipart/form-data" ng-submit="Add_Class()" >
+                    <div class="form-body">
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">SPE</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="class_spe_id" placeholder="Enter SPE Name" class="form-control" ng-model="class.selectedspe" typeahead="spe as spe.name for spe in getSpe($viewValue) | limitTo:10" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Category</label> 
+                              <div class="col-sm-6" >
+                                   <select class="form-control select2" id="category" name="category" ng-options="option.name for option in classescategories.availableOptions track by option.id" ng-model="classescategories.selectedOption" required></select>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Logo</label>
+                              <div class="col-sm-4">
+                                   <input type="file" file-model="class.logo">
+                                   <div class="error profile_error"></div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Banner</label>
+                              <div class="col-sm-4">
+                                   <input type="file" file-model="class.banner">
+                                   <div class="error profile_error"></div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Name</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="name" placeholder="Class Name" class="form-control" ng-model="class.name"  value="{{class.name}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Description</label>
+                              <div class="col-sm-6">
+                                   <textarea class="form-control" ck-editor name="description" ng-model="class.description">{{class.description}}</textarea>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Timezone</label> 
+                              <div class="col-sm-6" >
+                                   <select class="form-control select2" id="timezone" name="timezone" ng-options="option.name for option in timezones.availableOptions track by option.id" ng-model="timezones.selectedOption"></select>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Location</label>
+                              <div class="col-sm-3">
+                                   <input type="text" name="latitude" placeholder="Latitude" class="form-control" ng-model="class.latitude"  value="{{class.latitude}}" required>
+                              </div>
+                              <div class="col-sm-3">
+                                   <input type="text" name="longitude" placeholder="Longitude" class="form-control" ng-model="class.longitude"  value="{{class.longitude}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Address</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="address" placeholder="Class Address" class="form-control" ng-model="class.address"  value="{{class.address}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">City</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="city" placeholder="Class City" class="form-control" ng-model="class.city"  value="{{class.city}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">State</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="state" placeholder="Class State" class="form-control" ng-model="class.state"  value="{{class.state}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Country</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="country" placeholder="Class Country" class="form-control" ng-model="class.country"  value="{{class.country}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Zipcode</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="zipcode" placeholder="Class Zipcode" class="form-control" ng-model="class.zipcode"  value="{{class.zipcode}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Is Paid?</label>
+                              <div class="col-sm-4">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="is_paid"  ng-model="class.is_paid" value="1" > Yes </label> 
+                                        <label class="radio-inline"><input type="radio" name="is_paid" ng-model="class.is_paid" value="0" > No </label>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="form-group" ng-show="class.is_paid == '1'">
+                              <label class="col-sm-3 control-label">Booking Price</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="price" placeholder="Class Booking Price" class="form-control" ng-model="class.price"  value="{{class.price}}">
+                              </div>
+                         </div>
+                         <div class="form-group" ng-show="class.is_paid == '1'">
+                              <label class="col-sm-3 control-label">Discount Type</label>
+                              <div class="col-sm-6">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="discount_type" ng-model="class.discount_type" value="0" > None </label> 
+                                        <label class="radio-inline"><input type="radio" name="discount_type"  ng-model="class.discount_type" value="1" > $ </label>
+                                        <label class="radio-inline"><input type="radio" name="discount_type"  ng-model="class.discount_type" value="2" > % </label>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="form-group" ng-show="class.is_paid == '1' && class.discount_type != '0'">
+                              <label class="control-label col-md-3">Class Discount Date</label>
+                              <div class="col-md-3">
+                                   <div class="input-group date" id="offer_start_date">
+                                        <input type="text" size="16" name="offer_start_date" ng-model="class.offer_start_date" value="{{class.offer_start_date}}" readonly class="form-control">
+                                        <span class="input-group-btn">
+                                             <button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+                                             <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                   </div>
+                              </div>
+                              <div class="col-md-3">
+                                   <div class="input-group date" id="offer_end_date">
+                                        <input type="text" size="16" name="offer_end_date" ng-model="class.offer_end_date" value="{{class.offer_end_date}}" readonly class="form-control">
+                                        <span class="input-group-btn">
+                                             <button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+                                             <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="form-group" ng-show="class.is_paid == '1' && class.discount_type != '0'">
+                              <label class="col-sm-3 control-label">Discount Price</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="discount_amount" placeholder="Class Discount Price" class="form-control" ng-model="class.discount_amount"  value="{{class.discount_amount}}">
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Host/Instructor(s)</label>
+                              <div class="col-sm-6">
+                                   <select class="form-control select2" id="instructors" multiple name="instructors" ng-options="option.name for option in classesinstructors.availableOptions track by option.id" ng-model="classesinstructors.selectedOption" required></select>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Status</label>
+                              <div class="col-sm-4">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="status" ng-model="class.status" value="1" > Active </label> 
+                                        <label class="radio-inline"><input type="radio" name="status"  ng-model="class.status" value="0" > Inactive </label>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="form-actions">
+                         <div class="row">
+                              <div class="col-md-offset-3 col-md-9">
+                                   <button type="submit" class="btn green" id="add-new-btn">Submit</button>
+                                   <a class="btn default" ui-sref="classes">Cancel</a>
+                              </div>
+                         </div>
+                    </div>
+               </form>
+          </div>
+     </div>
+</div>

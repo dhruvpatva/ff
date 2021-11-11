@@ -1,0 +1,153 @@
+<ul class="page-breadcrumb breadcrumb">
+     <li>
+          <i class="fa fa-home"></i>
+          <a ui-sref="dashboard" >Home</a>
+          <i class="fa fa-angle-right"></i>
+     </li>
+     <li><a href="javascript:void(0);">Add Spe</a></li>
+</ul>
+<div class="form">
+     <div class="portlet light portlet-fit portlet-form bordered"  ng-init="Add_init()" >
+          <div class="portlet-title">
+               <div class="caption">
+                    Add Spe
+               </div>
+          </div>
+          <div class="portlet-body"> 
+               <div class="alert alert-danger show-error" ng-show="error"> <strong>Error! </strong>{{error_code}} </div>
+               <form class="form-horizontal form-bordered" id="form-username" name="speform" method="post"  enctype="multipart/form-data" ng-submit="Add_Spe()" >
+                    <div class="form-body">
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Logo</label>
+                              <div class="col-sm-4">
+                                   <input type="file" file-model="spe.logo" >
+                                   <div class="error profile_error"></div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Cover Image</label>
+                              <div class="col-sm-4">
+                                   <input type="file" file-model="spe.coverlogo" >
+                                   <div class="error profile_error_cover"></div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Name</label>
+                              <div class="col-sm-4">
+                                   <input type="text" name="name" class="form-control" ng-model="spe.name"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">About Us</label>
+                              <div class="col-sm-4">
+                                   <textarea class="form-control" ck-editor name="aboutus" ng-model="spe.aboutus" ></textarea>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Email</label>
+                              <div class="col-sm-4">
+                                   <input type="email"  name="email" class="form-control" ng-model="spe.email"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Phone No</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="phone" class="form-control" ng-model="spe.phone"required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Address</label>
+                              <div class="col-sm-4">
+                                   <textarea  name="address"  class="form-control" ng-model="spe.address"  >{{spe.address}}</textarea>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Latitude</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="latitude"  class="form-control" ng-model="spe.latitude"   required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Longitude</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="longitude"  class="form-control" ng-model="spe.longitude"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">City</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="city"  class="form-control" ng-model="spe.city"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">State</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="state"  class="form-control" ng-model="spe.state"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Country</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="country"  class="form-control" ng-model="spe.country"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Zipcode</label>
+                              <div class="col-sm-4">
+                                   <input type="text"  name="zipcode"  class="form-control" ng-model="spe.zipcode"  required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Website</label>
+                              <div class="col-sm-4">
+                                   <input type="url"  name="website"  class="form-control" ng-model="spe.website" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Timezone</label> 
+                              <div class="col-sm-4" >
+                                   <select class="form-control select2" id="timezone" name="timezone" id="timezone"   ng-options="option.name for option in timezones.availableOptions track by option.id" ng-model="timezones.selectedOption"  ></select>
+                              </div>
+                         </div>
+
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Features/Amenities</label> 
+                              <div class="col-sm-4" >
+                                   <select id="amenities" class="form-control select2" name="amenities" id="amenities"   ng-options="option.name for option in amenities.availableOptions track by option.id" ng-model="amenities.selectedOption"  multiple></select>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Refund Policy</label>
+                              <div class="col-sm-4">
+                                   <textarea class="form-control" ck-editor name="refund_policy" ng-model="spe.refund_policy"  >{{spe.refund_policy}}</textarea>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Privacy Policy</label>
+                              <div class="col-sm-4">
+                                   <textarea class="form-control" ck-editor name="privacy_policy" ng-model="spe.privacy_policy" >{{spe.privacy_policy}}</textarea>
+                              </div>
+                         </div>
+
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Status</label>
+                              <div class="col-sm-4">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="status" checked  ng-value="1" > Active </input> </label> 
+                                        <label class="radio-inline"><input type="radio" name="status"  ng-value="0" > Inactive</input> </label>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="form-actions">
+                         <div class="row">
+                              <div class="col-md-offset-3 col-md-9">
+                                   <button type="submit" class="btn green"  id="add-new-btn" >Submit</button>
+                                   <a class="btn default" ui-sref="users" >Cancel</a>
+                              </div>
+                         </div>
+                    </div>
+               </form>
+          </div>
+     </div>
+</div>

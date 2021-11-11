@@ -1,0 +1,39 @@
+<link href="./assets/admin/pages/css/login3.css" rel="stylesheet" type="text/css"/>
+<div id="loginbox" class="mainbox col-md-12">
+     <div class="panel">
+          <div class="panel-heading text-center">
+               <div class="panel-title">Login to your account</div>
+          </div>
+          <div class="page-logo" style="text-align: center; ">
+               <a href="#">
+               <img src="./assets/admin/layout4/img/logo-light.png" alt="logo" class="logo-default"/>
+               </a>
+          </div>
+          <hr>
+          <div class="panel-body">
+               <form name="loginForm" class="form-horizontal" method="post" ng-submit="submit()" novalidate form-autofill-fix>
+                    <div style="margin-top: 25px" class="input-icon">
+                        <i class="fa fa-user"></i></span> <input type="text" class="form-control placeholder-no-fix" name="username" ng-model="credentials.username" placeholder="Username"required />
+                    </div>
+                    <div class="error" ng-show="(submitted  || loginForm.username.$dirty)  && loginForm.username.$invalid"> <p class="error" ng-show="loginForm.username.$error.required">Username is mandatory</p>
+                    </div>
+                    
+                    <div style="margin-top: 25px" class="input-icon">
+                         <i class="fa fa-lock"></i> <input type="password" class="form-control" name="password" ng-model="credentials.password" placeholder="Password" required />
+                    </div>
+                    <div class="error" ng-show="(submitted  || loginForm.password.$dirty)  && loginForm.password.$invalid">
+                         <p class="error" ng-show="loginForm.password.$error.required">Password is mandatory</p>
+                    </div>
+                    <hr>
+                    <div  style="margin-top: 10px"  class="form-actions">
+                              <label class="checkbox">
+                              <div class="checker"><span><input type="checkbox" name="remember" value="1"></span></div> Remember me </label>
+                              <button type="submit" class="btn green-haze pull-right">
+                              Login <i class="m-icon-swapright m-icon-white"></i>
+                              </button>
+                    </div>
+                    <p ng-show="error" class="error">The password you entered is incorrect. Please try again</p>
+               </form>
+          </div>
+     </div>
+</div>

@@ -1,0 +1,227 @@
+<ul class="page-breadcrumb breadcrumb">
+     <li>
+          <i class="fa fa-home"></i>
+          <a ui-sref="dashboard" >Home</a>
+          <i class="fa fa-angle-right"></i>
+     </li>
+     <li><a href="javascript:void(0);">Edit Event</a></li>
+</ul>
+<div class="form">
+     <!-- BEGIN EXAMPLE TABLE PORTLET-->
+     <div class="portlet light portlet-fit portlet-form bordered" ng-init="edit_Event()">
+          <div class="portlet-title">
+               <div class="caption">
+                    Edit Event
+               </div>
+          </div>
+          <div class="portlet-body"> 
+               <div class="alert alert-danger show-error" ng-show="error"> <strong>Error! </strong>{{error_code}}</div>
+               <form class="form-horizontal form-bordered"   method="post"  enctype="multipart/form-data" ng-submit="Update_Event()" >
+                    <div class="form-body">
+                         <input type="hidden" name="id" ng-model="event.id" value="{{event.id}}" />
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">SPE</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="event_spe_id" placeholder="Enter SPE Name" class="form-control" ng-model="event.selectedspe" typeahead="spe as spe.name for spe in getSpe($viewValue) | limitTo:10" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Category</label> 
+                              <div class="col-sm-6" >
+                                   <select class="form-control select2" id="category" name="category" ng-options="option.name for option in eventcategories.availableOptions track by option.id" ng-model="eventcategories.selectedOption" required></select>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Logo</label>
+                              <div class="col-sm-4">
+                                   <img class="user_profile_image" src="{{event.event_image}}" style="width: 100px;margin-bottom: 10px;" />
+                                   <input type="file" file-model="event.logo" />
+                                   <div class="error profile_error"></div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Name</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="event_name" placeholder="Event Name" class="form-control" ng-model="event.event_name"  value="{{event.event_name}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Description</label>
+                              <div class="col-sm-6">
+                                   <textarea class="form-control" ck-editor name="event_description" ng-model="event.event_description">{{event.event_description}}</textarea>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Timezone</label> 
+                              <div class="col-sm-6" >
+                                   <select class="form-control select2" id="timezone" name="timezone" ng-options="option.name for option in timezones.availableOptions track by option.id" ng-model="timezones.selectedOption"></select>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Location</label>
+                              <div class="col-sm-3">
+                                   <input type="text" name="event_location_lat" placeholder="Latitude" class="form-control" ng-model="event.event_location_lat"  value="{{event.event_location_lat}}" required>
+                              </div>
+                              <div class="col-sm-3">
+                                   <input type="text" name="event_location_long" placeholder="Longitude" class="form-control" ng-model="event.event_location_long"  value="{{event.event_location_long}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Address</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="event_address" placeholder="Event Address" class="form-control" ng-model="event.event_address"  value="{{event.event_address}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">City</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="event_city" placeholder="Event City" class="form-control" ng-model="event.event_city"  value="{{event.event_city}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">State</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="event_state" placeholder="Event State" class="form-control" ng-model="event.event_state"  value="{{event.event_state}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Country</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="event_country" placeholder="Event Country" class="form-control" ng-model="event.event_country"  value="{{event.event_country}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Zipcode</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="event_zipcode" placeholder="Event Zipcode" class="form-control" ng-model="event.event_zipcode"  value="{{event.event_zipcode}}" required>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="control-label col-md-3">Event Date</label>
+                              <div class="col-md-3">
+                                   <div class="input-group date" id="event_start_time">
+                                        <input type="text" size="16" name="event_start_time" ng-model="event.event_start_time" value="{{event.event_start_time}}" readonly class="form-control" required>
+                                        <span class="input-group-btn">
+                                             <button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+                                             <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                   </div>
+                              </div>
+                              <div class="col-md-3">
+                                   <div class="input-group date" id="event_end_time">
+                                        <input type="text" size="16" name="event_end_time" ng-model="event.event_end_time" value="{{event.event_end_time}}" readonly class="form-control" required>
+                                        <span class="input-group-btn">
+                                             <button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+                                             <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Difficulty</label>
+                              <div class="col-sm-6">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="event_difficulty" ng-model="event.event_difficulty" value="1" > Easy </label> 
+                                        <label class="radio-inline"><input type="radio" name="event_difficulty"  ng-model="event.event_difficulty" value="2" > Moderate </label>
+                                        <label class="radio-inline"><input type="radio" name="event_difficulty"  ng-model="event.event_difficulty" value="3" > Hard </label>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Is Free?</label>
+                              <div class="col-sm-4">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="signup_more_time" ng-model="event.signup_more_time" value="1" > No </label> 
+                                        <label class="radio-inline"><input type="radio" name="signup_more_time"  ng-model="event.signup_more_time" value="0" > Yes </label>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="form-group" ng-show="event.signup_more_time == '1'">
+                              <label class="col-sm-3 control-label">Booking Price</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="booking_price" placeholder="Event Booking Price" class="form-control" ng-model="event.booking_price"  value="{{event.booking_price}}">
+                              </div>
+                         </div>
+                         <div class="form-group" ng-show="event.signup_more_time == '1'">
+                              <label class="col-sm-3 control-label">Discount Type</label>
+                              <div class="col-sm-6">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="event_discount_type" ng-model="event.event_discount_type" value="0" > None </label> 
+                                        <label class="radio-inline"><input type="radio" name="event_discount_type"  ng-model="event.event_discount_type" value="1" > $ </label>
+                                        <label class="radio-inline"><input type="radio" name="event_discount_type"  ng-model="event.event_discount_type" value="2" > % </label>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="form-group" ng-show="event.signup_more_time == '1' && event.event_discount_type != '0'">
+                              <label class="control-label col-md-3">Event Discount Date</label>
+                              <div class="col-md-3">
+                                   <div class="input-group date" id="event_offer_start">
+                                        <input type="text" size="16" name="event_offer_start" ng-model="event.event_offer_start" value="{{event.event_offer_start}}" readonly class="form-control">
+                                        <span class="input-group-btn">
+                                             <button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+                                             <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                   </div>
+                              </div>
+                              <div class="col-md-3">
+                                   <div class="input-group date" id="event_offer_end">
+                                        <input type="text" size="16" name="event_offer_end" ng-model="event.event_offer_end" value="{{event.event_offer_end}}" readonly class="form-control">
+                                        <span class="input-group-btn">
+                                             <button class="btn default date-reset" type="button"><i class="fa fa-times"></i></button>
+                                             <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="form-group" ng-show="event.signup_more_time == '1' && event.event_discount_type != '0'">
+                              <label class="col-sm-3 control-label">Discount Price</label>
+                              <div class="col-sm-6">
+                                   <input type="text" name="event_discount_amount" placeholder="Event Discount Price" class="form-control" ng-model="event.event_discount_amount"  value="{{event.event_discount_amount}}">
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Event Package</label>
+                              <div class="col-sm-6">
+                                   <textarea class="form-control" ck-editor name="event_package" ng-model="event.event_package">{{event.event_package}}</textarea>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Event Support</label>
+                              <div class="col-sm-6">
+                                   <textarea class="form-control" ck-editor name="event_support" ng-model="event.event_support">{{event.event_support}}</textarea>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Event Timing</label>
+                              <div class="col-sm-6">
+                                   <textarea class="form-control" ck-editor name="event_timing" ng-model="event.event_timing">{{event.event_timing}}</textarea>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Event Medals</label>
+                              <div class="col-sm-6">
+                                   <textarea class="form-control" ck-editor name="event_medals" ng-model="event.event_medals">{{event.event_medals}}</textarea>
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-3 control-label">Status</label>
+                              <div class="col-sm-4">
+                                   <div class="radio-list">
+                                        <label class="radio-inline"><input type="radio" name="status" ng-model="event.status" value="1" > Active </label> 
+                                        <label class="radio-inline"><input type="radio" name="status"  ng-model="event.status" value="0" > Inactive </label>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="form-actions">
+                         <div class="row">
+                              <div class="col-md-offset-3 col-md-9">
+                                   <button type="submit" class="btn green" id="add-new-btn" >Submit</button>
+                                   <a class="btn default" ui-sref="events" >Cancel</a>
+                              </div>
+                         </div>
+                    </div>
+               </form>
+          </div>
+     </div>
+</div>
